@@ -2,6 +2,7 @@ package app;
 
 import data.Book;
 import data.Library;
+import data.Magazine;
 import utils.DataReader;
 
 public class LibraryControl {
@@ -10,6 +11,8 @@ public class LibraryControl {
 	public static final int EXIT = 0;
 	public static final int ADD_BOOK = 1;
 	public static final int PRINT_BOOKS = 2;
+	public static final int ADD_MAGAZINE = 3;
+	public static final int PRINT_MAGAZINES = 4;
 
 	// variable that communicate with the user
 	private DataReader dataReader;
@@ -31,8 +34,14 @@ public class LibraryControl {
 			case ADD_BOOK:
 				addBook();
 				break;
+			case ADD_MAGAZINE:
+				addMagazine();
+				break;
 			case PRINT_BOOKS:
 				printBooks();
+				break;
+			case PRINT_MAGAZINES:
+				printMagazines();
 				break;
 			default:
 				System.out.println("Invalid option. Please try again.");
@@ -45,11 +54,11 @@ public class LibraryControl {
 
 	private void printOptions() {
 		System.out.println("Please select option:");
-		System.out.println();
-		System.out.println("0 - Exit the program");
-		System.out.println("1 - Add new book");
-		System.out.println("2 - Print available books");
-		System.out.println();
+		System.out.println(EXIT + " - Exit the program");
+		System.out.println(ADD_BOOK + " - Add new book");
+		System.out.println(ADD_MAGAZINE + " - Add new magazine");
+		System.out.println(PRINT_BOOKS + " - Print available books");
+		System.out.println(PRINT_MAGAZINES + " - Print available magazines");
 	}
 
 	private void addBook() {
@@ -59,6 +68,15 @@ public class LibraryControl {
 
 	private void printBooks() {
 		library.printBooks();
+	}
+
+	private void addMagazine() {
+		Magazine magazine = dataReader.readAndCreateMagazine();
+		library.addMagazine(magazine);
+	}
+
+	private void printMagazines() {
+		library.printMagazines();
 	}
 
 }
