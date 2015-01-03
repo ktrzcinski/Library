@@ -7,9 +7,9 @@ import utils.DataReader;
 public class LibraryControl {
 
 	// variables do control the program
-	public final int EXIT = 0;
-	public final int ADD_BOOK = 1;
-	public final int PRINT_BOOKS = 2;
+	public static final int EXIT = 0;
+	public static final int ADD_BOOK = 1;
+	public static final int PRINT_BOOKS = 2;
 
 	// variable that communicate with the user
 	private DataReader dataReader;
