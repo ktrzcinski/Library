@@ -53,7 +53,7 @@ public class Library {
 			System.out.println("No books in the library.");
 		}
 		for (int i = 0; i < booksNumber; i++) {
-			books[i].printInfo();
+			System.out.println(books[i]);
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class Library {
 			System.out.println("No magazines in the library.");
 		}
 		for (int i = 0; i < magazinesNumber; i++) {
-			magazines[i].printInfo();
+			System.out.println(magazines[i]);
 		}
 	}
 
