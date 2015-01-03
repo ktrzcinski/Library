@@ -1,7 +1,7 @@
 package data;
 
 public class Book {
-	// Pola
+	// variables
 	private String title;
 	private String author;
 	private int releaseDate;
@@ -9,7 +9,7 @@ public class Book {
 	private String publisher;
 	private String isbn;
 
-	// settery i gettery
+	// setters & getters
 	public String getTitle() {
 		return title;
 	}
@@ -58,7 +58,7 @@ public class Book {
 		this.author = author;
 	}
 
-	// Konstruktory
+	// constructors
 	public Book(String title, String author, int releaseDate, int pages,
 			String publisher, String isbn) {
 		this.setTitle(title);
