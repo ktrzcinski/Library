@@ -7,13 +7,6 @@ import utils.DataReader;
 
 public class LibraryControl {
 
-	// variables do control the program
-	public static final int EXIT = 0;
-	public static final int ADD_BOOK = 1;
-	public static final int PRINT_BOOKS = 2;
-	public static final int ADD_MAGAZINE = 3;
-	public static final int PRINT_MAGAZINES = 4;
-
 	// variable that communicate with the user
 	private DataReader dataReader;
 
@@ -27,9 +20,9 @@ public class LibraryControl {
 
 	// main loop of the program that allows option selection and interaction
 	public void controlLopp() {
-		int option;
+		Option option;
 		printOptions();
-		while ((option = dataReader.getInt()) != EXIT) {
+		while ((option = Option.createFromInt(dataReader.getInt())) != Option.EXIT) {
 			switch (option) {
 			case ADD_BOOK:
 				addBook();
@@ -43,8 +36,8 @@ public class LibraryControl {
 			case PRINT_MAGAZINES:
 				printMagazines();
 				break;
-			default:
-				System.out.println("Invalid option. Please try again.");
+			case EXIT:
+				;
 			}
 			printOptions();
 		}
@@ -54,11 +47,9 @@ public class LibraryControl {
 
 	private void printOptions() {
 		System.out.println("Please select option:");
-		System.out.println(EXIT + " - Exit the program");
-		System.out.println(ADD_BOOK + " - Add new book");
-		System.out.println(ADD_MAGAZINE + " - Add new magazine");
-		System.out.println(PRINT_BOOKS + " - Print available books");
-		System.out.println(PRINT_MAGAZINES + " - Print available magazines");
+		for (Option o : Option.values()) {
+			System.out.println(o);
+		}
 	}
 
 	private void addBook() {
