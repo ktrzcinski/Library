@@ -1,9 +1,13 @@
 package app;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+
 import data.Book;
 import data.Library;
 import data.Magazine;
 import utils.DataReader;
+import utils.LibraryUtils;
 
 public class LibraryControl {
 
@@ -20,26 +24,32 @@ public class LibraryControl {
 
 	// main loop of the program that allows option selection and interaction
 	public void controlLopp() {
-		Option option;
-		printOptions();
-		while ((option = Option.createFromInt(dataReader.getInt())) != Option.EXIT) {
-			switch (option) {
-			case ADD_BOOK:
-				addBook();
-				break;
-			case ADD_MAGAZINE:
-				addMagazine();
-				break;
-			case PRINT_BOOKS:
-				printBooks();
-				break;
-			case PRINT_MAGAZINES:
-				printMagazines();
-				break;
-			case EXIT:
-				;
+		Option option = null;
+		while (option != Option.EXIT) {
+			try {
+				printOptions();
+				option = Option.createFromInt(dataReader.getInt());
+				switch (option) {
+				case ADD_BOOK:
+					addBook();
+					break;
+				case ADD_MAGAZINE:
+					addMagazine();
+					break;
+				case PRINT_BOOKS:
+					printBooks();
+					break;
+				case PRINT_MAGAZINES:
+					printMagazines();
+					break;
+				case EXIT:
+					;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid data - publication was not added");
+			} catch (NumberFormatException | NoSuchElementException e) {
+				System.out.println("Invalid option. Please try again.");
 			}
-			printOptions();
 		}
 		// closing scanner stream
 		dataReader.close();
@@ -58,7 +68,7 @@ public class LibraryControl {
 	}
 
 	private void printBooks() {
-		library.printBooks();
+		LibraryUtils.printBooks(library);
 	}
 
 	private void addMagazine() {
@@ -67,7 +77,7 @@ public class LibraryControl {
 	}
 
 	private void printMagazines() {
-		library.printMagazines();
+		LibraryUtils.printMagazines(library);
 	}
 
 }
