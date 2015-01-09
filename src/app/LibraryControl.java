@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
@@ -7,19 +8,29 @@ import data.Book;
 import data.Library;
 import data.Magazine;
 import utils.DataReader;
+import utils.FileManager;
 import utils.LibraryUtils;
 
 public class LibraryControl {
 
 	// variable that communicate with the user
 	private DataReader dataReader;
+	private FileManager fileManager;
 
 	// "library" that stores the data
 	private Library library;
 
 	public LibraryControl() {
 		dataReader = new DataReader();
-		library = new Library();
+		fileManager = new FileManager();
+		System.out.println("Reading data from file...");
+		try {
+			library = fileManager.readLibraryFromFile();
+			System.out.println("Done");
+		} catch (ClassNotFoundException | IOException e) {
+			library = new Library();
+			System.out.println("New database has been created.");
+		}
 	}
 
 	// main loop of the program that allows option selection and interaction
@@ -43,7 +54,7 @@ public class LibraryControl {
 					printMagazines();
 					break;
 				case EXIT:
-					;
+					exit();
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid data - publication was not added");
@@ -78,6 +89,10 @@ public class LibraryControl {
 
 	private void printMagazines() {
 		LibraryUtils.printMagazines(library);
+	}
+	
+	private void exit() {
+		fileManager.writeLibraryToFile(library);
 	}
 	
 	private enum Option {
