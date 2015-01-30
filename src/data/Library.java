@@ -3,24 +3,32 @@ package data;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
 	private static final long serialVersionUID = 23793453456454629L;
 	
 	public static final int INITIAL_CAPACITY = 1;
-	private Publication[] publications;
-	private int publicationsNumber;
+	
+	private Map<String, Publication> publications;
+	private Map<String, LibraryUser> users;
 
 	public int getPublicationsNumber() {
-		return this.publicationsNumber;
+		return publications.size();
 	}
 
-	public Publication[] getPublications() {
+	public Map<String, Publication> getPublications() {
 		return publications;
+	}
+	
+	public Map<String, LibraryUser> getUsers() {
+		return users;
 	}
 
 	public Library() {
-		publications = new Publication[INITIAL_CAPACITY];
+		publications = new HashMap<>();
+		users = new HashMap<>();
 	}
 
 	public void addBook(Book book) {
@@ -31,24 +39,13 @@ public class Library implements Serializable {
 		addPublication(magazine);
 	}
 	
+	public void addUser(LibraryUser user) {
+		users.put(user.getPpsNo(), user);
+	}
+	
 	public void removePublication(Publication pub) {
-		if (pub == null)
-			return;
-		
-		final int NOT_FOUND = -1;
-		int found = NOT_FOUND;
-		int i = 0;
-		while (i < publications.length && found == NOT_FOUND) {
-			if (pub.equals(publications[i])) {
-				found = i;
-			} else {
-				i++;
-			}
-		}
-		
-		if (found != NOT_FOUND) {
-			System.arraycopy(publications, found + 1, publications, found, publications.length - found - 1);
-			publicationsNumber--;
+		if(publications.containsValue(pub)) {
+			publications.remove(pub.getTitle());
 		}
 	}
 
