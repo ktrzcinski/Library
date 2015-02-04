@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import data.Book;
 import data.Library;
+import data.LibraryUser;
 import data.Magazine;
 import utils.DataReader;
 import utils.FileManager;
@@ -53,6 +54,12 @@ public class LibraryControl {
 				case PRINT_MAGAZINES:
 					printMagazines();
 					break;
+				case ADD_USER:
+					addUser();
+					break;
+				case PRINT_USERS:
+					printUsers();
+					break;
 				case EXIT:
 					exit();
 				}
@@ -91,14 +98,27 @@ public class LibraryControl {
 		LibraryUtils.printMagazines(library);
 	}
 	
+	private void addUser() {
+		LibraryUser user = dataReader.readAndCreateLibraryUser();
+		library.addUser(user);
+	}
+	
+	private void printUsers() {
+		LibraryUtils.printUsers(library);
+	}
+	
 	private void exit() {
 		fileManager.writeLibraryToFile(library);
 	}
 	
 	private enum Option {
-		EXIT(0, "Exit the program"), ADD_BOOK(1, "Add new book"), ADD_MAGAZINE(2,
-				"Add new magazine"), PRINT_BOOKS(3, "Print available books"), PRINT_MAGAZINES(
-				4, "Print available magazines");
+		EXIT(0, "Exit the program"), 
+		ADD_BOOK(1, "Add new book"), 
+		ADD_MAGAZINE(2, "Add new magazine"), 
+		PRINT_BOOKS(3, "Print available books"), 
+		PRINT_MAGAZINES(4, "Print available magazines"),
+		ADD_USER(5, "Add new user"),
+		PRINT_USERS(6, "Print list of users");
 
 		private int value;
 		private String description;

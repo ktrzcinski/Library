@@ -1,7 +1,6 @@
 package data;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,19 +48,15 @@ public class Library implements Serializable {
 		}
 	}
 
-	public void addPublication(Publication pub) throws ArrayIndexOutOfBoundsException {
-		if (publicationsNumber == publications.length) {
-			publications = Arrays.copyOf(publications, publications.length * 2);
-		}
-		publications[publicationsNumber] = pub;
-		publicationsNumber++;
+	public void addPublication(Publication pub) {
+		publications.put(pub.getTitle(), pub);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < publicationsNumber; i++) {
-			builder.append(publications[i]);
+		for (Publication p: publications.values()) {
+			builder.append(p);
 			builder.append("\n");
 		}
 		return builder.toString();

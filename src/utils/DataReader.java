@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import data.Book;
+import data.LibraryUser;
 import data.Magazine;
 
 public class DataReader {
@@ -81,6 +82,17 @@ public class DataReader {
 		}
 
 		return new Magazine(title, publisher, language, year, month, day);
+	}
+	
+	public LibraryUser readAndCreateLibraryUser() {
+		System.out.println("First Name: ");
+		String firstName = sc.nextLine();
+		System.out.println("Last Name: ");
+		String lastName = sc.nextLine();
+		System.out.println("PPS no: ");
+		String ppsNo = sc.nextLine();
+		
+		return new LibraryUser(firstName, lastName, ppsNo);
 	}
 
 }
