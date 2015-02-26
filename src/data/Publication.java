@@ -1,19 +1,21 @@
 package data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public abstract class Publication implements Serializable, Comparable<Publication> {
 	private static final long serialVersionUID = 2379462795627934629L;
-	private int year;
+	
+	private LocalDate date;
 	private String title;
 	private String publisher;
 
-	public int getYear() {
-		return this.year;
+	public LocalDate getDate() {
+		return this.date;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public String getTitle() {
@@ -32,8 +34,12 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
 		this.publisher = publisher;
 	}
 	
+	public int getYear() {
+		return date.getYear();
+	}
+	
 	protected Publication(int year, String title, String publisher) {
-		setYear(year);
+		setDate(LocalDate.of(year, 1, 1));
 		setTitle(title);
 		setPublisher(publisher);
 	}
@@ -45,7 +51,7 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
 		result = prime * result
 				+ ((publisher == null) ? 0 : publisher.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + year;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		return result;
 	}
 
@@ -58,6 +64,11 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
 		if (getClass() != obj.getClass())
 			return false;
 		Publication other = (Publication) obj;
+		if(date == null) {
+			if(other.date != null)
+				return false;
+		} else if(!date.equals(other.date))
+				return false;
 		if (publisher == null) {
 			if (other.publisher != null)
 				return false;
@@ -67,8 +78,6 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
-			return false;
-		if (year != other.year)
 			return false;
 		return true;
 	}

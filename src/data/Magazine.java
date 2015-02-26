@@ -1,5 +1,7 @@
 package data;
 
+import java.time.LocalDate;
+
 public class Magazine extends Publication {
 	private static final long serialVersionUID = 2373453453434934629L;
 	private int month;
@@ -7,19 +9,11 @@ public class Magazine extends Publication {
 	private String language;
 
 	public int getMonth() {
-		return this.month;
-	}
-
-	public void setMonth(int month) {
-		this.month = month;
+		return getDate().getMonthValue();
 	}
 
 	public int getDay() {
-		return this.day;
-	}
-
-	public void setDay(int day) {
-		this.day = day;
+		return getDate().getDayOfYear();
 	}
 
 	public String getLanguage() {
@@ -34,36 +28,20 @@ public class Magazine extends Publication {
 			int month, int day) {
 		super(year, title, publisher);
 		setLanguage(language);
-		setMonth(month);
-		setDay(day);
+		setDate(LocalDate.of(year, month, day));
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder print = new StringBuilder(32);
-		print.append(getTitle());
-		print.append("; ");
-		print.append(getPublisher());
-		print.append("; ");
-		print.append(getYear());
-		print.append("; ");
-		print.append(getMonth());
-		print.append("; ");
-		print.append(getDay());
-		print.append("; ");
-		print.append(getLanguage());
-		print.append(";");
-		return print.toString();
+		return getTitle() + "; " + getPublisher() + "; " + getYear() + "-"
+				+ getMonth() + "-" + getDay() + "; " + getLanguage();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + day;
-		result = prime * result
-				+ ((language == null) ? 0 : language.hashCode());
-		result = prime * result + month;
+		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		return result;
 	}
 
@@ -76,14 +54,10 @@ public class Magazine extends Publication {
 		if (getClass() != obj.getClass())
 			return false;
 		Magazine other = (Magazine) obj;
-		if (day != other.day)
-			return false;
 		if (language == null) {
 			if (other.language != null)
 				return false;
 		} else if (!language.equals(other.language))
-			return false;
-		if (month != other.month)
 			return false;
 		return true;
 	}
